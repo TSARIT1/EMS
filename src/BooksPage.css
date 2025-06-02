@@ -1,0 +1,136 @@
+.books-container {
+  padding: 2rem;
+    background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+  color: #000000;
+}
+
+.books-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.books-header h2 {
+  font-size: 2rem;
+}
+
+.add-button {
+  background-color: #16c0d6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.books-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  color: #333;
+  min-height: 300px;
+}
+
+.filter-link {
+  color: #6a5acd;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.no-record {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1.2rem;
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  color: #333;
+}
+
+.book-form {
+  display: flex;
+  gap: 2rem;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-image {
+    background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 400px;
+  height: 400px;
+  background-image: url('./assets/bookimg.jpg');
+  
+}
+
+.right-column {
+  flex: 3;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+textarea {
+  height: 80px;
+  resize: vertical;
+  margin-top: 1rem;
+}
+
+.form-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.save {
+  background-color: #5a5ce6;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+}

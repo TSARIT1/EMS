@@ -1,0 +1,94 @@
+/* Background and main container */
+.log-container {
+  min-height: 100vh;
+  padding: 2rem;
+   background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.log-title {
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* Card */
+.log-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabs */
+.log-tabs {
+  display: flex;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  border-bottom: 4px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: #e5e7eb;
+}
+
+.tab-btn.active {
+  background: white;
+  color: #4f46e5;
+  border-bottom: 4px solid #4f46e5;
+}
+
+/* Content */
+.log-content {
+  padding: 2rem;
+}
+
+/* Filter */
+.log-filter {
+  display: flex;
+  align-items: center;
+  color: #4f46e5;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.log-filter:hover {
+  text-decoration: underline;
+}
+
+.filter-icon {
+  font-size: 1.1rem;
+}
+
+/* Empty state */
+.log-empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: #9ca3af;
+}
+
+.log-empty-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  color: #d1d5db;
+}
+

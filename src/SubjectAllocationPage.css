@@ -1,0 +1,50 @@
+.subject-allocation-container {
+    background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow-x: hidden;
+  padding: 30px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+ 
+  color: transparent;
+}
+
+.selector-row {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  align-items: center;
+}
+
+.selector-row select,
+.selector-row button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.selector-row button {
+  background-color: #1dc9b7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selector-row button:hover {
+  background-color: #17a598;
+}
+

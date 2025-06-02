@@ -1,0 +1,469 @@
+/* General Page Layout */
+.student-settings-page {
+  display: flex;
+  height: 100vh;
+ 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Left Panel Styles */
+.left-panel {
+  width: 260px;
+  height: 100%;
+  overflow-y: auto;
+  background: #fff;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.settings-list {
+  margin-top: 20px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.settings-item:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.05);
+}
+
+.settings-item .icon {
+  margin-right: 12px;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.settings-item:hover .icon {
+  transform: rotate(15deg);
+}
+
+.settings-item.active {
+  background-color: #f0f0f0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Right Panel Styles */
+.right-panel {
+  flex: 1;
+  padding: 20px 30px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: padding 0.3s ease;
+}
+
+/* Billing Buttons Section */
+.billing-buttons {
+  background: linear-gradient(135deg, #3f51b5, #ab47bc);
+  padding: 12px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+.tab-button {
+  background-color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #3f51b5;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tab-button:hover {
+  background-color: #3f51b5;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.tab-button:active {
+  background-color: #2c387e;
+  transform: translateY(1px);
+}
+
+/* Modules Section Styles */
+.modules-details {
+  margin-top: 30px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.modules-details h3, .modules-details h4 {
+  margin-bottom: 15px;
+  color: #3f51b5;
+  font-size: 22px;
+}
+
+.modules-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modules-table th,
+.modules-table td {
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+}
+
+.modules-table th {
+  background-color: #f4f4f4;
+  color: #3f51b5;
+  font-weight: 600;
+}
+
+.modules-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.remove-button {
+  background-color: #f44336;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Scrollbar for Left Panel */
+.left-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.left-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.left-panel::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Panel Layout */
+.student-settings-page {
+  display: flex;
+}
+
+.left-panel {
+  width: 250px;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+}
+
+.settings-list {
+  margin-top: 20px;
+}
+
+.settings-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.settings-item.active {
+  background: #f0f0ff;
+  font-weight: bold;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Tabs */
+.billing-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: #f2f2f2;
+  border: none;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background: #e3e6ff;
+  font-weight: bold;
+}
+
+/* Modules Table */
+.modules-details {
+  margin-top: 10px;
+}
+
+.modules-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.modules-table th,
+.modules-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.remove-button {
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Payment History */
+.payment-history {
+  position: relative;
+}
+
+.payment-tabs {
+  display: flex;
+  gap: 15px;
+}
+
+.payment-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  padding: 10px 18px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.payment-tab.active {
+  background-color: #e3e6ff;
+  font-weight: 600;
+}
+
+.payment-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  font-size: 18px;
+  color: #4f6ef7;
+  cursor: pointer;
+}
+
+.no-record {
+  margin-top: 80px;
+  text-align: center;
+  color: #999;
+}
+
+.no-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.student-settings-page {
+  display: flex;
+  font-family: Arial, sans-serif;
+}
+
+.left-panel {
+  width: 250px;
+  background: #f1f1f1;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.settings-list {
+  margin-top: 20px;
+}
+
+.settings-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.settings-item.active,
+.settings-item:hover {
+  background-color: #ddd;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 20px;
+}
+
+.billing-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 8px 16px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.tab-button.active {
+  background: #333;
+  color: white;
+}
+
+.modules-details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.core-modules-box,
+.addon-modules-box {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.core-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.core-right {
+  display: flex;
+  gap: 40px;
+  text-align: right;
+}
+
+.core-subtext {
+  margin-top: 10px;
+  color: #555;
+}
+
+.arrow {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.addon-desc {
+  font-size: 14px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.modules-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modules-table th,
+.modules-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.remove-button {
+  background: #e74c3c;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.payment-history {
+  margin-top: 20px;
+}
+
+.payment-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.payment-tab {
+  background: #eee;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.payment-tab.active {
+  background: #444;
+  color: white;
+}
+
+.payment-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.icon-btn {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.no-record {
+  text-align: center;
+  margin-top: 40px;
+  color: #888;
+}
+
+.no-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}

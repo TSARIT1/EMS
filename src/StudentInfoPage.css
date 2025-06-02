@@ -1,0 +1,111 @@
+/* General Page Styling */
+.module-page {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('./assets/pexels-anastasia-shuraeva-8467297.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.nav-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #bbff00, #ff6a00);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 200px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14.5px;
+  transition: 0.2s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #3c42b5, #2a2d80);
+  color: white;
+}
+
+/* Title */
+.page-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #f20404;
+}
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* Info Card Styling */
+.info-card {
+  background-color: rgba(255, 255, 255, 0.78); 
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  border-left: 6px solid #4e54c8;
+  color: #000000;
+  font-weight: 600; 
+}
+
+.info-card:hover {
+  transform: scale(1.02);
+}
+
+.info-card h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #4e54c8;
+  font-weight: bold;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-card li {
+  font-size: 16px;
+  color: #000000;
+  margin: 10px 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-weight: 630; /* Bold */
+}
+
+.info-card li:hover {
+  background-color: #bcc5f7;
+  color: #4e54c8;
+}
+
+
+
+
+
+
+
+
+
