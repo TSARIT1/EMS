@@ -14,7 +14,7 @@
   overflow-y: auto;
   background: #fff;
   padding: 20px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #1b1b1b;
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
   transition: width 0.3s ease;
 }

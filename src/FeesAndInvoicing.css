@@ -2,10 +2,7 @@
 .fees-container {
   font-family: 'Segoe UI', sans-serif;
   padding: 20px;
-  background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+  background-color: #dfe7fa;
   width: 100vw;
   position: relative;
   overflow-x: hidden;
@@ -106,7 +103,7 @@
 .selected-box select {
   padding: 6px;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #0b0b0b;
 }
 
 /* Empty State */
@@ -162,19 +159,19 @@
   cursor: pointer;
 }
 
+/* Scroll Fix */
 .form-scroll {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
-  max-height: 70vh;
+  max-height: 65vh;
   overflow-y: auto;
   padding-right: 10px;
 }
 
-.form-left,
-.form-right {
+.form-left, .form-right {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
 }
 
 .form-group {
@@ -187,7 +184,7 @@
 .form-group textarea,
 .form-group select {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #313030;
   border-radius: 6px;
   font-size: 14px;
   margin-top: 6px;
@@ -264,7 +261,7 @@ input:checked + .slider:before {
 
 /* Form Footer */
 .form-footer {
-  margin-top: 30px;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -280,20 +277,37 @@ input:checked + .slider:before {
   gap: 10px;
 }
 
-.save-btn {
-  align-self: flex-end;
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.save-btn, .cancel-btn {
   padding: 10px 20px;
-  background-color: #4f46e5;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
   font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
+  border: none;
   transition: background-color 0.3s ease;
+}
+
+.save-btn {
+  background-color: #4f46e5;
+  color: white;
 }
 
 .save-btn:hover {
   background-color: #3730a3;
+}
+
+.cancel-btn {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.cancel-btn:hover {
+  background-color: #d1d5db;
 }
 
 /* Settings Layout */
@@ -306,7 +320,6 @@ input:checked + .slider:before {
   margin-top: 20px;
 }
 
-/* Sidebar */
 .settings-sidebar {
   width: 220px;
   background-color: #f4f6fa;
@@ -346,7 +359,6 @@ input:checked + .slider:before {
   color: #3730a3;
 }
 
-/* Content */
 .settings-content {
   flex: 1;
   padding: 30px;
@@ -360,7 +372,6 @@ input:checked + .slider:before {
   color: #333;
 }
 
-/* Checkbox Group */
 .checkbox-group {
   display: flex;
   gap: 30px;
@@ -374,7 +385,6 @@ input:checked + .slider:before {
   font-weight: 500;
 }
 
-/* Save Button */
 .settings-save-btn {
   background-color: #6366f1;
   color: white;
@@ -405,4 +415,71 @@ input:checked + .slider:before {
 .form-scroll::-webkit-scrollbar-track,
 .settings-content::-webkit-scrollbar-track {
   background: transparent;
+}
+
+
+/* Fix scrollbars */
+.form-scroll, .settings-content {
+  scrollbar-width: thin;
+  scrollbar-color: #bbb transparent;
+}
+
+.form-scroll::-webkit-scrollbar,
+.settings-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-scroll::-webkit-scrollbar-thumb,
+.settings-content::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 4px;
+}
+
+.form-scroll::-webkit-scrollbar-track,
+.settings-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Footer action buttons */
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background-color: #e5e7eb;
+  color: #111827;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d1d5db;
+}
+
+/* Settings sidebar fix */
+.settings-sidebar {
+  width: 240px;
+  background-color: #f1f5f9;
+  border-right: 1px solid #d1d5db;
+}
+
+.settings-sidebar li {
+  padding: 10px 14px;
+  font-size: 15px;
+}
+
+.settings-sidebar li i {
+  margin-right: 8px;
+}
+
+/* Better form responsiveness */
+.form-left, .form-right {
+  flex: 1;
+  min-width: 280px;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './StudentInfoPage.css'; // reuse styles
+import './StudentInfoPage.css'; 
 
 const SchedulesCommunicationPage = () => {
   const navigate = useNavigate();
@@ -62,6 +62,7 @@ const SchedulesCommunicationPage = () => {
         ))}
       </div>
     </div>
+    
   );
 };
 

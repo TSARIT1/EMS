@@ -5,33 +5,14 @@ const StudentListPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    admissionNo: '',
-    email: '',
-    contact: '',
-    bloodGroup: '',
-    skills: '',
-    facebook: '',
-    linkedin: '',
-    additionalDetails: '',
-    address: '',
-    zipCode: '',
-    state: '',
-    country: '',
-    fatherName: '',
-    motherName: '',
-    parentContact: '',
-    parentEmail: ''
+    firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
+    bloodGroup: '', skills: '', facebook: '', linkedin: '',
+    additionalDetails: '', address: '', zipCode: '', state: '', country: '',
+    fatherName: '', motherName: '', parentContact: '', parentEmail: ''
   });
 
-  const handleAddStudent = () => {
-    setShowForm(true);
-  };
-
-  const handleBack = () => {
-    setShowForm(false);
-  };
+  const handleAddStudent = () => setShowForm(true);
+  const handleBack = () => setShowForm(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,24 +22,10 @@ const StudentListPage = () => {
   const handleSave = () => {
     setStudents([...students, formData]);
     setFormData({
-      firstName: '',
-      lastName: '',
-      admissionNo: '',
-      email: '',
-      contact: '',
-      bloodGroup: '',
-      skills: '',
-      facebook: '',
-      linkedin: '',
-      additionalDetails: '',
-      address: '',
-      zipCode: '',
-      state: '',
-      country: '',
-      fatherName: '',
-      motherName: '',
-      parentContact: '',
-      parentEmail: ''
+      firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
+      bloodGroup: '', skills: '', facebook: '', linkedin: '',
+      additionalDetails: '', address: '', zipCode: '', state: '', country: '',
+      fatherName: '', motherName: '', parentContact: '', parentEmail: ''
     });
     setShowForm(false);
   };
@@ -100,16 +67,15 @@ const StudentListPage = () => {
           </div>
 
           {students.length === 0 ? (
-            <div className="no-record">
-              <p>No record found.</p>
-            </div>
+            <div className="no-record"><p>No record found.</p></div>
           ) : (
             <table className="student-table">
               <thead>
                 <tr>
-                  <th>👤 Student Profile</th>
-                  <th>Student Name</th>
-                  <th>Student Type</th>
+                  <th>#</th>
+                  <th>👤 Profile</th>
+                  <th>Name</th>
+                  <th>Type</th>
                   <th>Contact</th>
                   <th>Email</th>
                   <th>Actions</th>
@@ -118,7 +84,8 @@ const StudentListPage = () => {
               <tbody>
                 {students.map((s, index) => (
                   <tr key={index}>
-                    <td><span role="img" aria-label="avatar">👤</span></td>
+                    <td><span className="index-box">{index + 1}</span></td>
+                    <td>👤</td>
                     <td>{s.firstName} {s.lastName}</td>
                     <td>Regular</td>
                     <td>{s.contact}</td>
@@ -134,12 +101,9 @@ const StudentListPage = () => {
           )}
         </>
       ) : (
-        <>
-          <div className="header">
-            <h2>➕ Add Students</h2>
-          </div>
-
-          <div className="form-body scrollable">
+        <div className="modal-overlay">
+          <div className="popup-form scrollable">
+            <div className="header"><h2>➕ Add Students</h2></div>
             <div className="form-section">
               <h4>📚 Academic Details</h4>
               <div className="row">
@@ -152,22 +116,22 @@ const StudentListPage = () => {
             <div className="form-section">
               <h4>📅 Personal Information</h4>
               <div className="row">
-                <input type="email" placeholder="Student Email" name="email" value={formData.email} onChange={handleChange} />
-                <input type="text" placeholder="Student Contact" name="contact" value={formData.contact} onChange={handleChange} />
+                <input type="email" placeholder="Email" name="email" value={formData.email} onChange={handleChange} />
+                <input type="text" placeholder="Contact" name="contact" value={formData.contact} onChange={handleChange} />
               </div>
               <input type="text" placeholder="Blood Group" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} />
             </div>
 
             <div className="form-section">
               <h4>💼 Skills</h4>
-              <input type="text" placeholder="Skills (e.g. HTML, CSS, JavaScript)" name="skills" value={formData.skills} onChange={handleChange} />
+              <input type="text" placeholder="Skills" name="skills" value={formData.skills} onChange={handleChange} />
             </div>
 
             <div className="form-section">
-              <h4>🌐 Social Details</h4>
+              <h4>🌐 Social</h4>
               <div className="row">
-                <input type="text" placeholder="Facebook Link" name="facebook" value={formData.facebook} onChange={handleChange} />
-                <input type="text" placeholder="LinkedIn Link" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+                <input type="text" placeholder="Facebook" name="facebook" value={formData.facebook} onChange={handleChange} />
+                <input type="text" placeholder="LinkedIn" name="linkedin" value={formData.linkedin} onChange={handleChange} />
               </div>
             </div>
 
@@ -192,17 +156,17 @@ const StudentListPage = () => {
 
             <div className="form-actions">
               <button className="save-btn" onClick={handleSave}>✔ Save</button>
-              <button className="cancel-btn">❌ Cancel</button>
-              <button className="back-btn" onClick={handleBack}>🔙 Back</button>
+              <button className="cancel-btn" onClick={handleBack}>❌ Cancel</button>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
 };
 
 export default StudentListPage;
+
 
 
 

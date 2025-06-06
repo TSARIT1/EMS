@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 import AdminDashboard from './AdminDashboard';
@@ -24,6 +24,8 @@ import SubjectsPage from './SubjectsPage';
 import StudentDashboard from './StudentDashboard';
 
 import './App.css';
+
+
 
 function LoginPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -98,6 +100,17 @@ function LoginPage() {
 }
 
 function App() {
+  const getUser = () =>{
+  fetch("/api/user")
+  .then(res => res.json())
+  .then(json => console.log(json))
+}
+
+useEffect(()=>{
+  
+  getUser()
+
+},[])
   return (
     <BrowserRouter>
       <Routes>

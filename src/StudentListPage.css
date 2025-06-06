@@ -1,151 +1,215 @@
+/* StudentListPage.css */
+
 .student-form-wrapper {
   font-family: 'Segoe UI', sans-serif;
-  padding: 20px;
-  background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  overflow-x: hidden;
+  padding: 30px;
+  background-color: #dfe7fa;
   min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .student-list-header {
   display: flex;
   justify-content: space-between;
+   background-color: #b4c8f8;
   align-items: center;
   margin-bottom: 20px;
+  animation: slideFade 0.6s ease;
 }
 
 .student-list-header h2 {
-  font-size: 24px;
-  color: #333;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .add-student-btn {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #0061f2, #0041c4);
   color: white;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(78, 145, 245, 0.3);
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
 .add-student-btn:hover {
   transform: scale(1.05);
-  background-color: #218838;
+  box-shadow: 0 6px 14px rgba(109, 161, 238, 0.4);
 }
 
 .student-filters {
   display: flex;
   gap: 10px;
+  flex-wrap: nowrap;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
 .student-filters select {
-  padding: 8px;
+  padding: 8px 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  min-width: 180px;
+  border: 1px solid #030303;
+  background: #fff;
+  width: 120px;
+  transition: border 0.3s ease;
+  flex-shrink: 0;
+}
+
+.student-filters select:focus {
+  border-color: #0061f2;
+  outline: none;
 }
 
 .filter-right {
   margin-left: auto;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .status-btn {
-  background: #e0f0ff;
-  color: #007bff;
+  background: #0171e2;
+  color: #ececec;
   padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: default;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  transition: background 0.3s;
+}
+
+.status-btn:hover {
+  background: #c1dcff;
 }
 
 .no-record {
   text-align: center;
-  color: #aaa;
-  margin-top: 50px;
+  color: #000000;
+  margin-top: 60px;
   font-size: 18px;
+  animation: fadeInUp 0.5s ease;
 }
 
 .student-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  border-radius: 8px;
+  background: rgb(250, 208, 208);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.4s ease;
+  table-layout: fixed;
 }
 
 .student-table th,
 .student-table td {
-  padding: 12px 16px;
+  padding: 8px 6px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #080808;
+  word-wrap: break-word;
+  font-size: 12px;
 }
 
 .student-table th {
-  background-color: #f0f5ff;
-  color: #333;
+  background-color: #f0f6ff;
+  color: #222;
+  font-size: 13px;
 }
 
 .student-table td button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  margin-right: 6px;
+  font-size: 14px;
+  margin-right: 4px;
+  transition: transform 0.2s;
 }
 
-.header {
+.student-table td button:hover {
+  transform: scale(1.2);
+}
+
+.index-box {
+  background-color: #0061f2;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 12px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Form Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.popup-form {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  width: 92%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  animation: scaleIn 0.4s ease;
+  position: relative;
+}
+
+.header h2 {
   text-align: center;
   margin-bottom: 20px;
-}
-
-.form-body {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  max-height: 80vh;
-  overflow-y: auto;
-  animation: fadeIn 0.3s ease-in-out;
+  color: #2b2b2b;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 .form-section {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .form-section h4 {
-  margin-bottom: 10px;
-  color: #333;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+  font-size: 17px;
 }
 
 input, textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 6px;
   margin-bottom: 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   transition: border 0.3s;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  color: #222;
+  font-size: 14px;
 }
 
 input:focus, textarea:focus {
-  border-color: #007bff;
+  border-color: #0061f2;
   outline: none;
-}
-
-.row {
-  display: flex;
-  gap: 16px;
+  background: #f0f8ff;
 }
 
 textarea {
@@ -153,67 +217,98 @@ textarea {
   min-height: 80px;
 }
 
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .save-btn {
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 10px 18px;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
 .cancel-btn {
-  background-color: #ffc107;
-  color: #333;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.back-btn {
-  background-color: #6c757d;
+  background-color: #dc3545;
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 10px 18px;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
-.save-btn:hover, .cancel-btn:hover, .back-btn:hover {
+.save-btn:hover, .cancel-btn:hover {
   opacity: 0.9;
   transform: scale(1.02);
 }
 
-/* Scrollbar Style */
+/* Scrollbar */
 .scrollable::-webkit-scrollbar {
   width: 8px;
 }
-
 .scrollable::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 8px;
 }
-
 .scrollable::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 8px;
+  background: #bbb;
+  border-radius: 4px;
 }
-
 .scrollable::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
 
 /* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 

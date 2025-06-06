@@ -15,7 +15,7 @@ const BooksPage = () => {
 
       {!showForm ? (
         <div className="books-content">
-          <span className="filter-link">🔍 Filter</span>
+          <span className="filter-link">🔍Filter</span>
           <div className="no-record">
             <div className="icon">📭</div>
             <p>No record found.</p>

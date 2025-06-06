@@ -1,11 +1,7 @@
 .attendance-container {
   padding: 30px;
   font-family: 'Segoe UI', sans-serif;
-    background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 100vw;
+  background-color: #eaf0fc;
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
@@ -13,8 +9,9 @@
 
 .attendance-container h2 {
   font-size: 26px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   font-weight: 600;
+  color: #2c3e50;
 }
 
 .attendance-tabs {
@@ -26,10 +23,11 @@
 .tab-btn {
   background: none;
   border: none;
-  padding: 14px 24px;
-  font-size: 16px;
+  padding: 12px 20px;
+  font-size: 15px;
   cursor: pointer;
-  transition: color 0.3s, border-bottom 0.3s;
+  transition: all 0.3s ease;
+  color: #444;
 }
 
 .tab-btn.active {
@@ -38,30 +36,16 @@
   font-weight: 600;
 }
 
-
-
 .start-btn {
   background: #556ee6;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 12px 20px;
+  padding: 10px 16px;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-}
-
-.manage-form,
-.analytics-form {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 30px;
+  white-space: nowrap;
 }
 
 .start-btn:hover {
@@ -69,15 +53,47 @@
   transform: translateY(-1px);
 }
 
-.analytics-links {
+.manage-form,
+.analytics-form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.manage-form select,
+.manage-form input[type="date"],
+.analytics-form .analytics-input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #cfd8dc;
   font-size: 14px;
-  margin-top: 8px;
-  color: #444;
+  min-width: 130px;
+  max-width: 160px;
+  transition: border-color 0.3s;
+}
+
+.manage-form select:focus,
+.manage-form input[type="date"]:focus {
+  outline: none;
+  border-color: #556ee6;
+}
+
+.analytics-links {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #555;
 }
 
 .analytics-links a {
   color: #556ee6;
-  margin-right: 6px;
+  margin-right: 8px;
   text-decoration: none;
 }
 
@@ -88,31 +104,34 @@
 .settings-wrapper {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: 24px;
   background: #fff;
   border-radius: 10px;
-  padding: 30px;
+  padding: 24px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
 }
 
 .settings-status,
 .settings-meetings {
-  width: 48%;
+  flex: 1 1 45%;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .section-header h3 {
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
 }
 
 .add-status {
-  font-size: 14px;
+  font-size: 13px;
   color: #556ee6;
   text-decoration: none;
   font-weight: 500;
@@ -125,21 +144,22 @@
 
 .status-table th,
 .status-table td {
-  padding: 10px 12px;
+  padding: 8px 10px;
   text-align: left;
-  font-size: 14px;
-  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .status-table tr:nth-child(even) {
-  background: #f9fafb;
+  background: #f8f9fb;
 }
 
 .dot {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
+  margin-right: 6px;
 }
 
 .green { background: #28a745; }
@@ -150,25 +170,29 @@
 .action-btn {
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  margin-right: 6px;
+  margin-right: 4px;
   color: #333;
   transition: transform 0.2s ease;
 }
 
 .action-btn:hover {
   transform: scale(1.1);
+  color: #000;
 }
 
 .toggle-row {
-  font-size: 14px;
+  font-size: 13px;
   margin: 12px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .toggle-row button {
-  margin-left: 12px;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 5px;
   font-weight: 500;
   font-size: 13px;
@@ -185,46 +209,6 @@
 .toggle-row .no {
   background: #fddede;
   color: #bb2020;
-}
-
-.manage-form {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 14px;
-  overflow-x: auto;
-  padding: 18px 20px;
-}
-
-.manage-form input[type="date"] {
-  width: 160px; /* Reduced width */
-  min-width: 140px;
-}
-
-.manage-form select {
-  min-width: 160px;
-}
-
-.start-btn {
-  padding: 10px 16px;
-  white-space: nowrap;
-}
-
-.manage-form select,
-.manage-form input[type="date"],
-.analytics-form .analytics-input {
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #cfd8dc;
-  font-size: 14px;
-  min-width: 160px;
-  transition: border-color 0.3s;
-}
-
-.manage-form select:focus,
-.manage-form input[type="date"]:focus {
-  outline: none;
-  border-color: #556ee6;
 }
 
 

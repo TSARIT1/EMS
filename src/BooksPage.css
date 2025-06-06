@@ -1,10 +1,6 @@
 .books-container {
   padding: 2rem;
-    background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 100vw;
+  background-color: #dfe7fa;
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
@@ -23,7 +19,7 @@
 }
 
 .add-button {
-  background-color: #16c0d6;
+  background-color: #16a0b3;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -41,7 +37,7 @@
 }
 
 .filter-link {
-  color: #6a5acd;
+  color: #5b4ac8;
   cursor: pointer;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -63,7 +59,7 @@
   background-color: #fff;
   border-radius: 10px;
   padding: 2rem;
-  color: #333;
+  color: #000000;
 }
 
 .book-form {
@@ -101,7 +97,7 @@
 input, select, textarea {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid #2b2a2a;
   border-radius: 6px;
 }
 
@@ -120,16 +116,16 @@ textarea {
 .save {
   background-color: #5a5ce6;
   color: white;
-  border: none;
+  border: 1px solid #2b2a2a;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;
 }
 
 .cancel {
-  background-color: #ddd;
-  color: #333;
-  border: none;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #2b2a2a;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;

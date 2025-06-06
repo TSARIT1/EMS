@@ -2,11 +2,7 @@
 .log-container {
   min-height: 100vh;
   padding: 2rem;
-   background-image: url('./assets/pexels-anete-lusina-4792285.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  width: 100vw;
+  background-color: #dfe7fa;
   position: relative;
   overflow-x: hidden;
 }

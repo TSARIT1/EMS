@@ -11,7 +11,7 @@ const FeesAndInvoicing = () => {
     { id: 'fees', label: 'Fees & Invoicing' },
     { id: 'invoices', label: 'Invoices' },
     { id: 'transactions', label: 'Payment Transactions' },
-    { id: 'settings', label: 'Settings' }
+    { id: 'settings', label: 'Settings' },
   ];
 
   const renderContent = () => {
@@ -30,7 +30,10 @@ const FeesAndInvoicing = () => {
               <div className="form-group"><label>Due Date</label><input type="date" /></div>
               <div className="form-group"><label>Description</label><textarea /></div>
               <h3>Line Item</h3>
-              <div className="form-group"><input type="text" placeholder="Item Name" /><input type="text" placeholder="Item Description" /></div>
+              <div className="form-group">
+                <input type="text" placeholder="Item Name" />
+                <input type="text" placeholder="Item Description" style={{ marginTop: "10px" }} />
+              </div>
             </div>
 
             <div className="form-right">
@@ -46,7 +49,10 @@ const FeesAndInvoicing = () => {
           <div className="form-footer">
             <textarea placeholder="Comments" />
             <div className="notify-email"><input type="checkbox" /><label>Email Notification</label></div>
-            <button className="save-btn">Save</button>
+            <div className="footer-actions">
+              <button className="cancel-btn" onClick={() => setShowForm(false)}>Cancel</button>
+              <button className="save-btn">Save</button>
+            </div>
           </div>
         </div>
       );
@@ -55,24 +61,23 @@ const FeesAndInvoicing = () => {
     if (activeTab === 'settings') {
       return (
         <div className="settings-wrapper">
-  <div className="settings-sidebar">
-    <ul>
-      <li className="active"><i className="icon-list" /> Invoice Notifications</li>
-      <li><i className="icon-payment" /> Payment Methods</li>
-      <li><i className="icon-template" /> Invoice Templates</li>
-    </ul>
-  </div>
-  <div className="settings-content">
-    <h3>Send Invoice and Payment Notification Emails To</h3>
-    <div className="checkbox-group">
-      <label><input type="checkbox" defaultChecked /> Students</label>
-      <label><input type="checkbox" /> Parents</label>
-      <label><input type="checkbox" /> Custom</label>
-    </div>
-    <button className="settings-save-btn">Save</button>
-  </div>
-</div>
-
+          <div className="settings-sidebar">
+            <ul>
+              <li className="active"><i className="icon-list" /> Invoice Notifications</li>
+              <li><i className="icon-payment" /> Payment Methods</li>
+              <li><i className="icon-template" /> Invoice Templates</li>
+            </ul>
+          </div>
+          <div className="settings-content">
+            <h3>Send Invoice and Payment Notification Emails To</h3>
+            <div className="checkbox-group">
+              <label><input type="checkbox" defaultChecked /> Students</label>
+              <label><input type="checkbox" /> Parents</label>
+              <label><input type="checkbox" /> Custom</label>
+            </div>
+            <button className="settings-save-btn">Save</button>
+          </div>
+        </div>
       );
     }
 
@@ -119,6 +124,7 @@ const FeesAndInvoicing = () => {
 };
 
 export default FeesAndInvoicing;
+
 
 
 
