@@ -7,7 +7,7 @@ const OtpVerificationPage = () => {
   const navigate = useNavigate();
 
   const handleVerify = () => {
-    if (otp === '1234') {
+    if (otp === '') {
       navigate('/setup');
     } else {
       alert('Invalid OTP. Try again.');
