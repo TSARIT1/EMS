@@ -22,6 +22,9 @@ import FeesAndInvoicing from './FeesAndInvoicing';
 import TeacherDashboard from './TeacherDashboard';
 import SubjectsPage from './SubjectsPage';
 import StudentDashboard from './StudentDashboard';
+import RegisterPage from './RegisterPage';
+import OtpVerificationPage from './OtpVerificationPage';
+import InstituteSetupPage from './InstituteSetupPage';
 
 import './App.css';
 
@@ -35,6 +38,7 @@ function LoginPage() {
   const handleSelect = (view) => {
     setSelectedView(view);
     setMenuOpen(false);
+    
   };
 
   const handleLogin = () => {
@@ -114,7 +118,7 @@ useEffect(()=>{
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
         <Route path="/admin/student-info" element={<StudentInfoPage />} />
@@ -137,6 +141,9 @@ useEffect(()=>{
         <Route path="/teachersDash/subjects" element={<SubjectsPage />} />
         <Route path="/studentsDash" element={<StudentDashboard />} /> 
         <Route path="/studentsDash/subjects" element={<SubjectsPage />} />
+        <Route path="/" element={<RegisterPage />} />
+        <Route path="/verify-otp" element={<OtpVerificationPage />} />
+        <Route path="/setup" element={<InstituteSetupPage />} />
       </Routes>
     </BrowserRouter>
   );

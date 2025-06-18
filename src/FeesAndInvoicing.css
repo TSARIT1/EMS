@@ -449,7 +449,7 @@ input:checked + .slider:before {
 
 .cancel-btn {
   padding: 10px 20px;
-  background-color: #e5e7eb;
+  background-color: #b5b7bc;
   color: #111827;
   border: none;
   border-radius: 8px;
@@ -466,7 +466,7 @@ input:checked + .slider:before {
 .settings-sidebar {
   width: 240px;
   background-color: #f1f5f9;
-  border-right: 1px solid #d1d5db;
+  border-right: 1px solid #cdd4de;
 }
 
 .settings-sidebar li {

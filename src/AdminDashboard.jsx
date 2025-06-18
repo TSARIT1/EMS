@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => navigate('/');
+  const handleLogout = () => navigate('/login');
   const handleSettings = () => navigate('/admin/settings');
 
   const goToStudentInfo = () => navigate('/admin/student-info');
