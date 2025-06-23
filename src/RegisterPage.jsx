@@ -18,10 +18,28 @@ const RegisterPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = () => {
-    // Here you can add form validation or API call
-    navigate('/verify-otp');
+  const handleRegister = async () => {
+    try {
+      const response = await fetch( {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' ,
+        },
+        body: JSON.stringify(formData),
+      });
 
+      const data = await response.json();
+
+      if (response.ok) {
+        
+        navigate('/verify-otp');
+      } else {
+        alert(`Registration failed: ${data.message || 'Please try again.'}`);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -31,12 +49,11 @@ const RegisterPage = () => {
         <blockquote>
           TSAR is all about flexibility, affordability, and technological sophistication.
         </blockquote>
-        
       </div>
 
       <div className="register-right">
-        <h2>Create Your Account</h2><br></br><br></br><br></br>
-        
+        <h2>Create Your Account</h2><br /><br /><br />
+
         <div className="form-grid">
           <input type="text" name="orgName" placeholder="Organization Name" onChange={handleChange} />
           <input type="text" name="fullName" placeholder="Your Full Name" onChange={handleChange} />
@@ -53,3 +70,6 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+
+
+

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  FaHome, FaPlus, FaBook, FaCalendarAlt, FaMoneyBillAlt, FaBuilding,
+  FaUserCircle, FaCog, FaPhoneAlt, FaSignOutAlt, FaUserFriends, FaChalkboardTeacher,
+  FaClipboardList
+} from 'react-icons/fa';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -10,7 +15,6 @@ const AdminDashboard = () => {
 
   const handleLogout = () => navigate('/login');
   const handleSettings = () => navigate('/admin/settings');
-
   const goToStudentInfo = () => navigate('/admin/student-info');
   const goToSchedules = () => navigate('/admin/schedules-communication');
   const goToFinance = () => navigate('/admin/finance-accounting');
@@ -21,23 +25,23 @@ const AdminDashboard = () => {
       {/* Navbar */}
       <div className="navbar">
         <div className="nav-left">
-          <button className="nav-btn">🏠 Home</button>
+          <button className="nav-btn"><FaHome /> Home</button>
         </div>
 
         <div className="nav-center">
           <input className="search-input" type="text" placeholder="Search..." />
-          <button className="nav-btn">➕ Add New</button>
+          <button className="nav-btn"><FaPlus /> Add New</button>
 
           <div className="module-btn-wrapper" style={{ position: 'relative' }}>
             <div className="module-btn" onClick={() => setModuleOpen(!moduleOpen)}>
-              📚 Modules ▼
+              <FaBook /> Modules ▼
             </div>
             {moduleOpen && (
               <div className="dropdown module-dropdown">
-                <p onClick={goToStudentInfo}>🎓 Student Information System</p>
-                <p onClick={goToSchedules}>📆 Schedules & Communication</p>
-                <p onClick={goToFinance}>💰 Finance & Accounting</p>
-                <p onClick={goToAdministration}>🏢 Administration</p>
+                <p onClick={goToStudentInfo}><FaUserFriends /> Student Information System</p>
+                <p onClick={goToSchedules}><FaCalendarAlt /> Schedules & Communication</p>
+                <p onClick={goToFinance}><FaMoneyBillAlt /> Finance & Accounting</p>
+                <p onClick={goToAdministration}><FaBuilding /> Administration</p>
               </div>
             )}
           </div>
@@ -45,14 +49,14 @@ const AdminDashboard = () => {
 
         <div className="nav-right">
           <div className="profile-btn" onClick={() => setMenuOpen(!menuOpen)}>
-            👤 Admin ▼
+            <FaUserCircle /> Admin ▼
           </div>
           {menuOpen && (
             <div className="dropdown">
-              <p>👤 Admin Name</p>
-              <p onClick={handleSettings}>⚙️ Personal Settings</p>
-              <p>📞 Contact Support</p>
-              <p className="logout" onClick={handleLogout}>🚪 Logout</p>
+              <p><FaUserCircle /> Admin Name</p>
+              <p onClick={handleSettings}><FaCog /> Personal Settings</p>
+              <p><FaPhoneAlt /> Contact Support</p>
+              <p className="logout" onClick={handleLogout}><FaSignOutAlt /> Logout</p>
             </div>
           )}
         </div>
@@ -62,7 +66,7 @@ const AdminDashboard = () => {
       <div className="dashboard-wrapper">
         <div className="dashboard-grid">
           <div className="card info-card">
-            <div className="card-icon">👤</div>
+            <div className="card-icon"><FaUserCircle /></div>
             <h4>Hey, Testing</h4>
             <p>Testing</p>
             {(() => {
@@ -77,29 +81,31 @@ const AdminDashboard = () => {
                 </>
               );
             })()}
-            <p className="view-profile-link" onClick={() => setShowProfilePopup(true)}>👤 View Profile</p>
+            <p className="view-profile-link" onClick={() => setShowProfilePopup(true)}>
+              <FaUserCircle /> View Profile
+            </p>
           </div>
 
           <div className="card purple">
-            <div className="card-icon">👥</div>
+            <div className="card-icon"><FaUserFriends /></div>
             <h4>Students</h4>
             <p>0 Active</p>
             <p>0 Alumni</p>
             <p>0 Licenses</p>
           </div>
           <div className="card green">
-            <div className="card-icon">🧑‍🏫</div>
+            <div className="card-icon"><FaChalkboardTeacher /></div>
             <h4>Teachers & Admin Staff</h4>
             <p>0 Teacher</p>
             <p>0 Admin</p>
           </div>
           <div className="card yellow">
-            <div className="card-icon">📅</div>
+            <div className="card-icon"><FaCalendarAlt /></div>
             <h4>Events</h4>
             <p>0 Upcoming</p>
           </div>
           <div className="card blue">
-            <div className="card-icon">📋</div>
+            <div className="card-icon"><FaClipboardList /></div>
             <h4>New Submissions</h4>
             <p>0 Generic</p>
             <p>0 Student Pre-Admission</p>
@@ -112,13 +118,13 @@ const AdminDashboard = () => {
       {showProfilePopup && (
         <div className="popup-overlay" onClick={() => setShowProfilePopup(false)}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <h2>👤 Admin Profile</h2>
+            <h2><FaUserCircle /> Admin Profile</h2>
             <p><strong>Name:</strong> Admin Name</p>
             <p><strong>Email:</strong> admin@example.com</p>
             <p><strong>Role:</strong> System Administrator</p>
             <p><strong>Phone:</strong> +1 (555) 123-4567</p>
             <p><strong>Joined:</strong> Jan 1, 2023</p>
-            <button onClick={() => setShowProfilePopup(false)} className="close-btn">❎</button>
+            <button onClick={() => setShowProfilePopup(false)} className="close-btn">Close</button>
           </div>
         </div>
       )}
@@ -127,6 +133,7 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
 
 
 

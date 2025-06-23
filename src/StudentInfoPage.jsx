@@ -1,7 +1,23 @@
-// src/pages/StudentFieldsPage.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './StudentInfoPage.css';
+
+import {
+  FaBook,
+  FaUsers,
+  FaClipboardList,
+  FaRegCalendarCheck,
+  FaHeartbeat,
+  FaUserGraduate,
+  FaChalkboardTeacher,
+  FaRegAddressBook,
+  FaBookOpen,
+  FaClipboardCheck,
+  FaUserCog,
+} from 'react-icons/fa';
+import { MdLibraryBooks } from 'react-icons/md';
+import { BsJournalBookmarkFill } from 'react-icons/bs';
+import { AiOutlineTool } from 'react-icons/ai';
 
 const StudentFieldsPage = () => {
   const navigate = useNavigate();
@@ -9,52 +25,56 @@ const StudentFieldsPage = () => {
 
   const cards = [
     {
-      title: '📘 Class & Subjects',
+      icon: <FaBook />,
+      title: 'Class & Subjects',
       items: [
-        { label: '📚 Class & Subjects', path: '/admin/student-info/class-subjects' },
+        { label: 'Class & Subjects', path: '/admin/student-info/class-subjects', icon: <FaBook /> },
       ],
     },
     {
-      title: '🧑‍🎓 Students',
+      icon: <FaUserGraduate />,
+      title: 'Students',
       items: [
-        { label: '👥 Students', path: '/admin/student-info/students' },
-        { label: '📝 Student Fields', path: '/admin/student-info/student-fields' },
-      ],
-    },
-   
-    {
-      title: '📊 Assessment & Gradings',
-      items: [
-        { label: '🧾 Assessment & Gradings', path: '/admin/student-info/assessment' },
+        { label: 'Students', path: '/admin/student-info/students', icon: <FaUsers /> },
+        { label: 'Student Fields', path: '/admin/student-info/student-fields', icon: <FaClipboardList /> },
       ],
     },
     {
-      title: '🕒 Attendance',
+      icon: <FaClipboardCheck />,
+      title: 'Assessment & Gradings',
       items: [
-        { label: '✅ Attendance', path: '/admin/student-info/attendance' },
+        { label: 'Assessment & Gradings', path: '/admin/student-info/assessment', icon: <FaClipboardCheck /> },
       ],
     },
     {
-      title: '🏥 Health Records',
+      icon: <FaRegCalendarCheck />,
+      title: 'Attendance',
       items: [
-        { label: '🧒 Students', path: '/admin/student-info/health-students' },
-       
+        { label: 'Attendance', path: '/admin/student-info/attendance', icon: <FaRegCalendarCheck /> },
       ],
     },
     {
-      title: '📚 Library',
+      icon: <FaHeartbeat />,
+      title: 'Health Records',
       items: [
-        { label: '📖 Books', path: '/admin/student-info/books' },
-        { label: '📌 Check In/Out Log', path: '/admin/student-info/book-log' },
-        
+        { label: 'Students', path: '/admin/student-info/health-students', icon: <FaUserGraduate /> },
       ],
     },
     {
-      title: '👩‍🏫 Teachers/Admin Staff',
+      icon: <MdLibraryBooks />,
+      title: 'Library',
       items: [
-        { label: '👥 Teachers/Admin', path: "/teachersd" },
-        { label: '📅 Subjects Allocation', path: '/subject-allocation' },
-        { label: '🛠️ Teachers Fields', path: '/admin/student-info/teacher-fields' },
+        { label: 'Books', path: '/admin/student-info/books', icon: <FaBookOpen /> },
+        { label: 'Check In/Out Log', path: '/admin/student-info/book-log', icon: <BsJournalBookmarkFill /> },
+      ],
+    },
+    {
+      icon: <FaChalkboardTeacher />,
+      title: 'Teachers/Admin Staff',
+      items: [
+        { label: 'Teachers/Admin', path: "/teachersd", icon: <FaUsers /> },
+        { label: 'Subjects Allocation', path: '/subject-allocation', icon: <FaRegAddressBook /> },
+        { label: 'Teachers Fields', path: '/admin/student-info/teacher-fields', icon: <AiOutlineTool /> },
       ],
     },
   ];
@@ -64,14 +84,16 @@ const StudentFieldsPage = () => {
       <div className="navbar">
         <button className="nav-btn" onClick={goToDashboard}><b>Go back to Dashboard</b></button>
       </div>
-      <h2 className="page-title">📝 Student Fields</h2>
+      <h2 className="page-title"><FaClipboardList /> Student Fields</h2>
       <div className="card-grid">
         {cards.map((card, index) => (
           <div key={index} className="info-card">
-            <h3>{card.title}</h3>
+            <h3><span className="card-icon">{card.icon}</span> {card.title}</h3>
             <ul>
               {card.items.map((item, idx) => (
-                <li key={idx} onClick={() => navigate(item.path)}>{item.label}</li>
+                <li key={idx} onClick={() => navigate(item.path)}>
+                  <span className="card-icon">{item.icon}</span> {item.label}
+                </li>
               ))}
             </ul>
           </div>
@@ -82,6 +104,7 @@ const StudentFieldsPage = () => {
 };
 
 export default StudentFieldsPage;
+
 
 
 

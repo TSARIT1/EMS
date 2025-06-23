@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StudentListPage.css';
+import axios from 'axios';
+
+import { FaUser, FaPlus, FaTrash, FaEdit, FaFilter, FaDownload, FaListUl } from 'react-icons/fa';
 
 const StudentListPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -11,6 +14,19 @@ const StudentListPage = () => {
     fatherName: '', motherName: '', parentContact: '', parentEmail: ''
   });
 
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const res = await axios.get('/api/students');
+      setStudents(res.data);
+    } catch (err) {
+      console.error('Error fetching students:', err);
+    }
+  };
+
   const handleAddStudent = () => setShowForm(true);
   const handleBack = () => setShowForm(false);
 
@@ -19,26 +35,33 @@ const StudentListPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSave = () => {
-    setStudents([...students, formData]);
-    setFormData({
-      firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
-      bloodGroup: '', skills: '', facebook: '', linkedin: '',
-      additionalDetails: '', address: '', zipCode: '', state: '', country: '',
-      fatherName: '', motherName: '', parentContact: '', parentEmail: ''
-    });
-    setShowForm(false);
+  const handleSave = async () => {
+    try {
+      await axios.post('/api/students', formData);
+      fetchStudents();
+      setShowForm(false);
+      setFormData({
+        firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
+        bloodGroup: '', skills: '', facebook: '', linkedin: '',
+        additionalDetails: '', address: '', zipCode: '', state: '', country: '',
+        fatherName: '', motherName: '', parentContact: '', parentEmail: ''
+      });
+    } catch (err) {
+      console.error('Error saving student:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updated = students.filter((_, i) => i !== index);
-    setStudents(updated);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/students/${id}`);
+      fetchStudents();
+    } catch (err) {
+      console.error('Error deleting student:', err);
+    }
   };
 
-  const handleEdit = (index) => {
-    const student = students[index];
+  const handleEdit = (student) => {
     setFormData(student);
-    handleDelete(index);
     setShowForm(true);
   };
 
@@ -47,8 +70,8 @@ const StudentListPage = () => {
       {!showForm ? (
         <>
           <div className="student-list-header">
-            <h2>📘 Students</h2>
-            <button className="add-student-btn" onClick={handleAddStudent}>➕ Add Students</button>
+            <h2><FaUser /> Students</h2>
+            <button className="add-student-btn" onClick={handleAddStudent}><FaPlus /> Add Students</button>
           </div>
 
           <div className="student-filters">
@@ -59,9 +82,9 @@ const StudentListPage = () => {
 
             <div className="filter-right">
               <span className="status-btn">Enrollment Status</span>
-              <span className="status-btn">📋</span>
-              <span className="status-btn">⬇️</span>
-              <span className="status-btn">🗂️</span>
+              <span className="status-btn"><FaListUl /></span>
+              <span className="status-btn"><FaDownload /></span>
+              <span className="status-btn"><FaFilter /></span>
               <span className="status-btn">0 Selected ▾</span>
             </div>
           </div>
@@ -73,7 +96,7 @@ const StudentListPage = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>👤 Profile</th>
+                  <th><FaUser /> Profile</th>
                   <th>Name</th>
                   <th>Type</th>
                   <th>Contact</th>
@@ -83,16 +106,16 @@ const StudentListPage = () => {
               </thead>
               <tbody>
                 {students.map((s, index) => (
-                  <tr key={index}>
-                    <td><span className="index-box">{index + 1}</span></td>
-                    <td>👤</td>
+                  <tr key={s._id || index}>
+                    <td>{index + 1}</td>
+                    <td><FaUser /></td>
                     <td>{s.firstName} {s.lastName}</td>
                     <td>Regular</td>
                     <td>{s.contact}</td>
                     <td>{s.email}</td>
                     <td>
-                      <button onClick={() => handleEdit(index)}>✏️</button>
-                      <button onClick={() => handleDelete(index)}>🗑️</button>
+                      <button onClick={() => handleEdit(s)}><FaEdit /></button>
+                      <button onClick={() => handleDelete(s._id)}><FaTrash /></button>
                     </td>
                   </tr>
                 ))}
@@ -103,9 +126,9 @@ const StudentListPage = () => {
       ) : (
         <div className="modal-overlay">
           <div className="popup-form scrollable">
-            <div className="header"><h2>➕ Add Students</h2></div>
+            <div className="header"><h2><FaPlus /> Add Students</h2></div>
             <div className="form-section">
-              <h4>📚 Academic Details</h4>
+              <h4>Academic Details</h4>
               <div className="row">
                 <input type="text" placeholder="First Name" name="firstName" value={formData.firstName} onChange={handleChange} />
                 <input type="text" placeholder="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} />
@@ -114,7 +137,7 @@ const StudentListPage = () => {
             </div>
 
             <div className="form-section">
-              <h4>📅 Personal Information</h4>
+              <h4>Personal Info</h4>
               <div className="row">
                 <input type="email" placeholder="Email" name="email" value={formData.email} onChange={handleChange} />
                 <input type="text" placeholder="Contact" name="contact" value={formData.contact} onChange={handleChange} />
@@ -123,12 +146,8 @@ const StudentListPage = () => {
             </div>
 
             <div className="form-section">
-              <h4>💼 Skills</h4>
+              <h4>Skills & Social</h4>
               <input type="text" placeholder="Skills" name="skills" value={formData.skills} onChange={handleChange} />
-            </div>
-
-            <div className="form-section">
-              <h4>🌐 Social</h4>
               <div className="row">
                 <input type="text" placeholder="Facebook" name="facebook" value={formData.facebook} onChange={handleChange} />
                 <input type="text" placeholder="LinkedIn" name="linkedin" value={formData.linkedin} onChange={handleChange} />
@@ -136,7 +155,7 @@ const StudentListPage = () => {
             </div>
 
             <div className="form-section">
-              <h4>📝 Additional Details</h4>
+              <h4>Additional Details</h4>
               <textarea placeholder="Address" name="address" value={formData.address} onChange={handleChange}></textarea>
               <div className="row">
                 <input type="text" placeholder="Zip Code" name="zipCode" value={formData.zipCode} onChange={handleChange} />
@@ -155,8 +174,8 @@ const StudentListPage = () => {
             </div>
 
             <div className="form-actions">
-              <button className="save-btn" onClick={handleSave}>✔ Save</button>
-              <button className="cancel-btn" onClick={handleBack}>❌ Cancel</button>
+              <button className="save-btn" onClick={handleSave}>Save</button>
+              <button className="cancel-btn" onClick={handleBack}>Cancel</button>
             </div>
           </div>
         </div>
@@ -166,6 +185,8 @@ const StudentListPage = () => {
 };
 
 export default StudentListPage;
+
+
 
 
 

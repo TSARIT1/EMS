@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import AdminDashboard from './AdminDashboard';
 import AdminSettings from './AdminSettings';
@@ -28,8 +29,7 @@ import InstituteSetupPage from './InstituteSetupPage';
 
 import './App.css';
 
-
-
+// --------------------------- Login Page ---------------------------
 function LoginPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedView, setSelectedView] = useState('');
@@ -38,7 +38,6 @@ function LoginPage() {
   const handleSelect = (view) => {
     setSelectedView(view);
     setMenuOpen(false);
-    
   };
 
   const handleLogin = () => {
@@ -49,7 +48,7 @@ function LoginPage() {
     } else if (selectedView === 'students') {
       navigate('/studentsDash'); 
     } else if (selectedView === 'parents') {
-      navigate('/parents');
+      navigate('/parents'); // route not yet defined
     }
   };
 
@@ -103,22 +102,30 @@ function LoginPage() {
   );
 }
 
+// --------------------------- Main App ---------------------------
 function App() {
-  const getUser = () =>{
-  fetch("/api/user")
-  .then(res => res.json())
-  .then(json => console.log(json))
-}
+  const getUser = async () => {
+    try {
+      const res = await axios.get('/api/user');
+      console.log(res.data); // Handle user auth/session logic later
+    } catch (err) {
+      console.error('User fetch failed:', err);
+    }
+  };
 
-useEffect(()=>{
-  
-  getUser()
+  useEffect(() => {
+    getUser();
+  }, []);
 
-},[])
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<RegisterPage />} />
+        <Route path="/verify-otp" element={<OtpVerificationPage />} />
+        <Route path="/setup" element={<InstituteSetupPage />} />
+
+        {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
         <Route path="/admin/student-info" element={<StudentInfoPage />} />
@@ -128,8 +135,6 @@ useEffect(()=>{
         <Route path="/admin/student-info/class-subjects" element={<ClassSubjectsPage />} />
         <Route path="/admin/student-info/students" element={<StudentListPage />} />
         <Route path="/admin/student-info/student-fields" element={<StudentFieldsPage />} />
-        <Route path="/teachersd" element={<TeacherListPage />} />
-        <Route path="/subject-allocation" element={<SubjectAllocationPage />} />
         <Route path="/admin/student-info/teacher-fields" element={<TeacherFieldsPage />} />
         <Route path="/admin/student-info/assessment" element={<AssessmentAndGradingsPage />} />
         <Route path="/admin/student-info/attendance" element={<AttendancePage />} />
@@ -137,19 +142,24 @@ useEffect(()=>{
         <Route path="/admin/student-info/books" element={<BooksPage />} />
         <Route path="/admin/student-info/book-log" element={<CheckInOutLog />} />
         <Route path="/admin/finance/fees" element={<FeesAndInvoicing />} />
+
+        {/* Teacher Routes */}
         <Route path="/teachers" element={<TeacherDashboard />} />
         <Route path="/teachersDash/subjects" element={<SubjectsPage />} />
-        <Route path="/studentsDash" element={<StudentDashboard />} /> 
+        <Route path="/subject-allocation" element={<SubjectAllocationPage />} />
+
+        {/* Student Routes */}
+        <Route path="/studentsDash" element={<StudentDashboard />} />
         <Route path="/studentsDash/subjects" element={<SubjectsPage />} />
-        <Route path="/" element={<RegisterPage />} />
-        <Route path="/verify-otp" element={<OtpVerificationPage />} />
-        <Route path="/setup" element={<InstituteSetupPage />} />
+
+        {/* You can add Parent Routes here */}
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
 
 
 

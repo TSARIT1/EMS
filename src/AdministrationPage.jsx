@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaRegFileAlt, FaPlug, FaCog, FaBuilding } from 'react-icons/fa';
 import './StudentInfoPage.css';
 
 const AdministrationPage = () => {
@@ -8,22 +9,21 @@ const AdministrationPage = () => {
 
   const cards = [
     {
-      icon: '📑',
+      icon: <FaRegFileAlt />,
       title: 'Reports',
       items: [
         { label: 'View Reports', path: '/admin/administration/reports' },
       ],
     },
     {
-      icon: '🔌',
+      icon: <FaPlug />,
       title: 'Integrations',
       items: [
         { label: 'Payment Gateways', path: '/admin/administration/payment' },
-       
       ],
     },
     {
-      icon: '⚙️',
+      icon: <FaCog />,
       title: 'Organisation Settings',
       items: [
         { label: 'Manage Org. Profile', path: '/admin/administration/org-profile' },
@@ -38,14 +38,14 @@ const AdministrationPage = () => {
       <div className="navbar">
         <button className="nav-btn" onClick={goToDashboard}>Go back to Dashboard</button>
       </div>
-      <h2 className="page-title">🏢 Administration</h2>
+      <h2 className="page-title"><FaBuilding style={{ marginRight: '8px' }} /> Administration</h2>
       <div className="card-grid">
         {cards.map((card, i) => (
           <div key={i} className="info-card">
             <h3><span className="card-icon">{card.icon}</span> {card.title}</h3>
             <ul>
               {card.items.map((item, j) => (
-                <li key={j} onClick={() => navigate(item.path)}> {item.label}</li>
+                <li key={j} onClick={() => navigate(item.path)}>{item.label}</li>
               ))}
             </ul>
           </div>

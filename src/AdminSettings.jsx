@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCog, FaEdit, FaKey, FaArrowLeft } from 'react-icons/fa';
 import './AdminSettings.css';
 
 const AdminSettings = () => {
@@ -9,22 +10,27 @@ const AdminSettings = () => {
   return (
     <div className="settings-container">
       <div className="settings-sidebar">
-        <h3>⚙️ Admin Settings</h3>
+        <h3><FaCog style={{ marginRight: '8px' }} /> Admin Settings</h3>
         <ul>
           <li
             className={activeTab === 'edit' ? 'active' : ''}
             onClick={() => setActiveTab('edit')}
           >
-            ✏️ Edit Profile
+            <FaEdit style={{ marginRight: '8px' }} />
+            Edit Profile
           </li>
           <li
             className={activeTab === 'password' ? 'active' : ''}
             onClick={() => setActiveTab('password')}
           >
-            🔑 Change Password
+            <FaKey style={{ marginRight: '8px' }} />
+            Change Password
           </li>
         </ul>
-        <button className="back-button" onClick={() => navigate('/admin')}>← Back to Dashboard</button>
+        <button className="back-button" onClick={() => navigate('/admin')}>
+          <FaArrowLeft style={{ marginRight: '6px' }} />
+          Back to Dashboard
+        </button>
       </div>
 
       <div className="settings-content">

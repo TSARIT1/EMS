@@ -1,5 +1,6 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FaPlus, FaEdit, FaTrash, FaUser, FaSave, FaTimes } from 'react-icons/fa';
 import './TeacherListPage.css';
 
 const TeacherListPage = () => {
@@ -7,49 +8,30 @@ const TeacherListPage = () => {
   const [teachers, setTeachers] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [formData, setFormData] = useState({
-    employeeType: '',
-    firstName: '',
-    lastName: '',
-    teacherId: '',
-    email: '',
-    contact: '',
-    dob: '',
-    gender: '',
-    bloodGroup: '',
-    address: '',
-    zipCode: '',
-    state: '',
-    country: '',
-    skills: '',
-    facebook: '',
-    linkedin: '',
-    profileSummary: ''
+    employeeType: '', firstName: '', lastName: '', teacherId: '',
+    email: '', contact: '', dob: '', gender: '', bloodGroup: '',
+    address: '', zipCode: '', state: '', country: '', skills: '',
+    facebook: '', linkedin: '', profileSummary: ''
   });
+
+  useEffect(() => {
+    // Fetch teachers from API
+    axios.get('/api/teachers') // Replace with actual API
+      .then(res => setTeachers(res.data))
+      .catch(err => console.error('Error fetching teachers:', err));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleAddTeacher = () => {
     setFormData({
-      employeeType: '',
-      firstName: '',
-      lastName: '',
-      teacherId: '',
-      email: '',
-      contact: '',
-      dob: '',
-      gender: '',
-      bloodGroup: '',
-      address: '',
-      zipCode: '',
-      state: '',
-      country: '',
-      skills: '',
-      facebook: '',
-      linkedin: '',
-      profileSummary: ''
+      employeeType: '', firstName: '', lastName: '', teacherId: '',
+      email: '', contact: '', dob: '', gender: '', bloodGroup: '',
+      address: '', zipCode: '', state: '', country: '', skills: '',
+      facebook: '', linkedin: '', profileSummary: ''
     });
     setEditIndex(null);
     setShowForm(true);
@@ -62,11 +44,17 @@ const TeacherListPage = () => {
 
   const handleSave = () => {
     if (editIndex !== null) {
-      const updated = [...teachers];
-      updated[editIndex] = formData;
-      setTeachers(updated);
+      // PUT update
+      axios.put(`/api/teachers/${teachers[editIndex].id}`, formData)
+        .then(res => {
+          const updated = [...teachers];
+          updated[editIndex] = res.data;
+          setTeachers(updated);
+        });
     } else {
-      setTeachers([...teachers, formData]);
+      // POST create
+      axios.post('/api/teachers', formData)
+        .then(res => setTeachers([...teachers, res.data]));
     }
     setShowForm(false);
     setEditIndex(null);
@@ -79,8 +67,12 @@ const TeacherListPage = () => {
   };
 
   const handleDelete = (index) => {
-    const updated = teachers.filter((_, i) => i !== index);
-    setTeachers(updated);
+    const teacher = teachers[index];
+    axios.delete(`/api/teachers/${teacher.id}`)
+      .then(() => {
+        const updated = teachers.filter((_, i) => i !== index);
+        setTeachers(updated);
+      });
   };
 
   return (
@@ -88,36 +80,36 @@ const TeacherListPage = () => {
       {!showForm ? (
         <>
           <div className="teacher-list-header">
-            <h2>👥 Teachers</h2>
-            <button className="add-teacher-btn" onClick={handleAddTeacher}>➕ Add Teacher</button>
+            <h2><FaUser /> Teachers</h2>
+            <button className="add-teacher-btn" onClick={handleAddTeacher}>
+              <FaPlus /> Add Teacher
+            </button>
           </div>
 
           <table className="teacher-table">
             <thead>
               <tr>
                 <th>Profile Picture</th>
-                <th>Teachers Name</th>
-                <th>Teacher Id</th>
-                <th>Employee Type</th>
-                <th>Contact Phone</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Contact</th>
                 <th>Email</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {teachers.map((teacher, index) => (
+              {teachers.map((t, index) => (
                 <tr key={index}>
+                  <td><img src="https://via.placeholder.com/40" alt="Profile" /></td>
+                  <td>{t.firstName} {t.lastName}</td>
+                  <td>{t.teacherId}</td>
+                  <td>{t.employeeType}</td>
+                  <td>{t.contact}</td>
+                  <td>{t.email}</td>
                   <td>
-                    <img src="https://via.placeholder.com/40" alt="Profile" />
-                  </td>
-                  <td>{teacher.firstName} {teacher.lastName}</td>
-                  <td>{teacher.teacherId}</td>
-                  <td>{teacher.employeeType}</td>
-                  <td>{teacher.contact}</td>
-                  <td>{teacher.email}</td>
-                  <td className="actions">
-                    <button className="edit" onClick={() => handleEdit(index)}>✏️</button>
-                    <button className="delete" onClick={() => handleDelete(index)}>🗑️</button>
+                    <button onClick={() => handleEdit(index)}><FaEdit /></button>
+                    <button onClick={() => handleDelete(index)}><FaTrash /></button>
                   </td>
                 </tr>
               ))}
@@ -126,7 +118,7 @@ const TeacherListPage = () => {
         </>
       ) : (
         <div className="form-body fade-in">
-          <h3>👤 Teachers/Staff Details</h3>
+          <h3><FaUser /> Teachers/Staff Details</h3>
 
           <div className="row">
             <select name="employeeType" value={formData.employeeType} onChange={handleChange}>
@@ -150,14 +142,14 @@ const TeacherListPage = () => {
           <div className="row">
             <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
             <select name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="">Select Gender</option>
+              <option value="">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
           </div>
 
-          <h4>📄 Additional Information</h4>
+          <h4>Additional Information</h4>
 
           <div className="row">
             <input type="text" name="bloodGroup" placeholder="Blood Group" value={formData.bloodGroup} onChange={handleChange} />
@@ -170,7 +162,7 @@ const TeacherListPage = () => {
             <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} />
           </div>
 
-          <h4>🛠️ Skills & Social Details</h4>
+          <h4>Skills & Social Details</h4>
 
           <textarea name="profileSummary" placeholder="Profile Summary" value={formData.profileSummary} onChange={handleChange}></textarea>
 
@@ -181,8 +173,8 @@ const TeacherListPage = () => {
           </div>
 
           <div className="form-actions">
-            <button className="save-btn" onClick={handleSave}>✔ Save</button>
-            <button className="cancel-btn" onClick={handleBack}>❌ Cancel</button>
+            <button className="save-btn" onClick={handleSave}><FaSave /> Save</button>
+            <button className="cancel-btn" onClick={handleBack}><FaTimes /> Cancel</button>
           </div>
         </div>
       )}

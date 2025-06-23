@@ -1,108 +1,157 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  FaCreditCard,
+  FaExchangeAlt,
+  FaFilter,
+  FaDownload,
+  FaUserFriends,
+  FaCogs,
+  FaRegSmile,
+  FaKey,
+  FaBell
+  // ...import other icons as needed
+} from "react-icons/fa";
 import "./StudentFieldsPage.css";
 
-import { FaCreditCard, FaExchangeAlt, FaFilter, FaDownload } from "react-icons/fa";
+const iconMap = {
+  "Manage Org. Profile": <FaUserFriends />,
+  Billing: <FaCreditCard />,
+  "Import/Export Data": <FaDownload />,
+  "Self Registration": <FaKey />,
+  "Students Alerts": <FaBell />,
+  // Add more mappings as needed
+};
 
 const StudentFieldsPage = () => {
   const [selected, setSelected] = useState("");
   const [activeBillingTab, setActiveBillingTab] = useState("Modules");
-
+  
+  const [coreModules, setCoreModules] = useState([]);
+  const [addonModules, setAddonModules] = useState([]);
+  const [paymentHistory, setPaymentHistory] = useState([]);
+  
   const menuItems = [
-    { icon: "✏️", label: "Manage Org. Profile" },
-    { icon: "🔢", label: "Billing" },
-    { icon: "⬆️", label: "Import/Export Data" },
-    { icon: "📋", label: "Self Registration" },
-    { icon: "⚠️", label: "Students Alerts" },
-    { icon: "📤", label: "Email SMTP Settings" },
-    { icon: "✉️", label: "Email Templates" },
-    { icon: "📱", label: "SMS Templates" },
-    { icon: "🟢", label: "WhatsApp Templates" },
-    { icon: "🔤", label: "Terminologies" },
-    { icon: "🌐", label: "Multilingual" },
-    { icon: "🎨", label: "White Label" },
-    { icon: "👤", label: "User Portal" },
-    { icon: "👁️‍🗨️", label: "Modules On/Off" },
-    { icon: "💳", label: "Payment Gateways" },
-    { icon: "☁️", label: "Apps" },
-    { icon: "🧠", label: "AI Settings" },
-    { icon: "🔁", label: "APIs" },
+    "Manage Org. Profile",
+    "Billing",
+    "Import/Export Data",
+    "Self Registration",
+    "Students Alerts",
+    "Email SMTP Settings",
+    "Email Templates",
+    "SMS Templates",
+    "WhatsApp Templates",
+    "Terminologies",
+    "Multilingual",
+    "White Label",
+    "User Portal",
+    "Modules On/Off",
+    "Payment Gateways",
+    "Apps",
+    "AI Settings",
+    "APIs",
   ];
+
+  useEffect(() => {
+    if (selected === "Billing") {
+      fetchModules();
+      fetchPayments(activeBillingTab);
+    }
+  }, [selected, activeBillingTab]);
+
+  const fetchModules = async () => {
+    try {
+      const res = await axios.get("/api/billing/modules");
+      setCoreModules(res.data.core || []);
+      setAddonModules(res.data.addon || []);
+    } catch (err) {
+      console.error("Error loading modules:", err);
+      setCoreModules([]);
+      setAddonModules([]);
+    }
+  };
+
+  const fetchPayments = async () => {
+    try {
+      const type = activeBillingTab === "Payments History" ? "payments" : "modules";
+      const res = await axios.get(`/api/billing/${type}`, {
+        params: { method: activeBillingTab.includes("Credit Card") ? "credit" : "bank" }
+      });
+      setPaymentHistory(res.data || []);
+    } catch (err) {
+      console.error("Error loading payments:", err);
+      setPaymentHistory([]);
+    }
+  };
 
   return (
     <div className="student-settings-page">
-      <div className="left-panel">
-        <h2>👥 Students Settings Panel</h2>
+      <aside className="left-panel">
+        <h2>👥 Student Settings</h2>
         <div className="settings-list">
-          {menuItems.map((item, idx) => (
+          {menuItems.map((label) => (
             <div
-              className={`settings-item ${selected === item.label ? "active" : ""}`}
-              key={idx}
-              onClick={() => setSelected(item.label)}
+              key={label}
+              className={`settings-item ${selected === label ? "active" : ""}`}
+              onClick={() => {
+                setSelected(label);
+                setActiveBillingTab("Modules");
+              }}
             >
-              <span className="icon">{item.icon}</span>
-              <span className="label">{item.label}</span>
+              <span className="icon">{iconMap[label] || "🔧"}</span>
+              <span className="label">{label}</span>
             </div>
           ))}
         </div>
-      </div>
+      </aside>
 
-      <div className="right-panel">
+      <section className="right-panel">
         {selected === "Billing" && (
           <>
-            <div className="billing-buttons">
+            <nav className="billing-buttons">
               {["Modules", "Payments History", "Payment Settings"].map((tab) => (
                 <button
                   key={tab}
-                  className={`tab-button ${activeBillingTab === tab ? "active" : ""}`}
+                  className={activeBillingTab === tab ? "active" : ""}
                   onClick={() => setActiveBillingTab(tab)}
                 >
                   {tab}
                 </button>
               ))}
-            </div>
+            </nav>
 
             {activeBillingTab === "Modules" && (
               <div className="modules-details">
                 <div className="core-modules-box">
-                  <div className="core-header">
+                  <header>
                     <strong>Core Modules</strong>
-                    <div className="core-right">
-                      <div>
-                        <span>Active Plan</span>
-                        <br />
-                        <strong>-</strong>
-                      </div>
-                      <div>
-                        <span>Expired On</span>
-                        <br />
-                        <strong></strong>
-                      </div>
-                      <div className="arrow">▼</div>
+                    <div className="meta">
+                      <span>Plan: {coreModules.plan || "-"}</span>
+                      <span>Expires: {coreModules.expiry || "-"}</span>
                     </div>
-                  </div>
-                  <div className="core-subtext">
-                    Active Students: 0 | Alumni Students: 0
-                  </div>
+                  </header>
+                  <p>Active: {coreModules.activeCount || 0} | Alumni: {coreModules.alumniCount || 0}</p>
                 </div>
 
                 <div className="addon-modules-box">
-                  <strong>Addon Modules</strong>
-                  <p className="addon-desc">
-                    Add-on Modules are advanced features that your education institution can subscribe.
-                    You pay only for activation and not on students numbers.
-                  </p>
+                  <strong>Add-on Modules</strong>
+                  <p>Add-on modules can be subscribed separately...</p>
                   <table className="modules-table">
                     <thead>
                       <tr>
-                        <th>Modules</th>
-                        <th>Status</th>
-                        <th>Frequency</th>
-                        <th>Expires</th>
-                        <th>Actions</th>
+                        <th>Name</th><th>Status</th><th>Freq.</th><th>Expires</th><th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Empty as per the provided image */}
+                      {addonModules.map((m, i) => (
+                        <tr key={i}>
+                          <td>{m.name}</td>
+                          <td>{m.status}</td>
+                          <td>{m.frequency}</td>
+                          <td>{m.expires}</td>
+                          <td><button>Edit</button></td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -111,35 +160,41 @@ const StudentFieldsPage = () => {
 
             {activeBillingTab === "Payments History" && (
               <div className="payment-history">
-                <div className="payment-tabs">
-                  <button className="payment-tab active">
-                    <FaCreditCard /> Credit Card
-                  </button>
-                  <button className="payment-tab">
-                    <FaExchangeAlt /> Bank Transfers
-                  </button>
-                </div>
+                <nav>
+                  <button className="active"><FaCreditCard /> Credit Card</button>
+                  <button><FaExchangeAlt /> Bank Transfers</button>
+                </nav>
                 <div className="payment-actions">
-                  <FaFilter className="icon-btn" title="Filter" />
-                  <FaDownload className="icon-btn" title="Download" />
+                  <FaFilter /><FaDownload />
                 </div>
-                <div className="no-record">
-                  <div className="no-icon">💬</div>
-                  <p>No record found.</p>
-                </div>
+                {!paymentHistory.length ? (
+                  <div className="no-record"><FaRegSmile /> <p>No transactions found.</p></div>
+                ) : (
+                  <table className="payment-table">
+                    <thead>
+                      <tr><th>Date</th><th>Amount</th><th>Method</th></tr>
+                    </thead>
+                    <tbody>
+                      {paymentHistory.map((p,i) => (
+                        <tr key={i}>
+                          <td>{p.date}</td><td>{p.amount}</td><td>{p.method}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             )}
 
             {activeBillingTab === "Payment Settings" && (
-              <div>
-                <h4>Payment Settings View</h4>
-              </div>
+              <div><h4>Payment Settings options to configure...</h4></div>
             )}
           </>
         )}
-      </div>
+      </section>
     </div>
   );
 };
 
 export default StudentFieldsPage;
+

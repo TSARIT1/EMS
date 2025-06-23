@@ -1,5 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  FaHome,
+  FaPlus,
+  FaBook,
+  FaUserGraduate,
+  FaCog,
+  FaPhoneAlt,
+  FaSignOutAlt,
+  FaUser,
+  FaUsers,
+  FaChalkboardTeacher,
+  FaCalendarAlt,
+  FaClipboardList,
+  FaTimes
+} from 'react-icons/fa';
 import './AdminDashboard.css';
 
 const StudentDashboard = () => {
@@ -27,30 +42,30 @@ const StudentDashboard = () => {
     <div className="admin-dashboard">
       <div className="navbar">
         <div className="nav-left">
-          <button className="nav-btn">🏠 Home</button>
+          <button className="nav-btn"><FaHome /> Home</button>
         </div>
 
         <div className="nav-center">
           <input className="search-input" type="text" placeholder="Search..." />
-          <button className="nav-btn">➕ Add New</button>
+          <button className="nav-btn"><FaPlus /> Add New</button>
 
           <div className="module-btn-wrapper" ref={moduleRef}>
             <div className="module-btn" onClick={() => setModuleOpen(!moduleOpen)}>
-              📚 Modules ▼
+              <FaBook /> Modules ▼
             </div>
           </div>
         </div>
 
         <div className="nav-right" ref={menuRef}>
           <div className="profile-btn" onClick={() => setMenuOpen(!menuOpen)}>
-            🤵🏼‍♂ Student ▼
+            <FaUserGraduate /> Student ▼
           </div>
           {menuOpen && (
             <div className="dropdown">
-              <p>🤵🏼‍♂ Student Name</p>
-              <p onClick={handleSettings}>⚙️ Personal Settings</p>
-              <p>📞 Contact Support</p>
-              <p className="logout" onClick={handleLogout}>🚪 Logout</p>
+              <p><FaUserGraduate /> Student Name</p>
+              <p onClick={handleSettings}><FaCog /> Personal Settings</p>
+              <p><FaPhoneAlt /> Contact Support</p>
+              <p className="logout" onClick={handleLogout}><FaSignOutAlt /> Logout</p>
             </div>
           )}
         </div>
@@ -59,7 +74,7 @@ const StudentDashboard = () => {
       <div className="dashboard-wrapper">
         <div className="dashboard-grid">
           <div className="card info-card">
-            <div className="card-icon">🤵🏼‍♂</div>
+            <div className="card-icon"><FaUserGraduate /></div>
             <h4>Hey, Student</h4>
             <p>Welcome</p>
             {(() => {
@@ -74,17 +89,19 @@ const StudentDashboard = () => {
                 </>
               );
             })()}
-            <p className="view-profile-link" onClick={() => setShowProfilePopup(true)}>🤵🏼‍♂ View Profile</p>
+            <p className="view-profile-link" onClick={() => setShowProfilePopup(true)}>
+              <FaUserGraduate /> View Profile
+            </p>
           </div>
 
           <div className="card purple">
-            <div className="card-icon">👥</div>
+            <div className="card-icon"><FaUsers /></div>
             <h4>Students</h4>
             <p><b>0</b></p>
           </div>
 
           <div className="card green">
-            <div className="card-icon">🧑‍🏫</div>
+            <div className="card-icon"><FaChalkboardTeacher /></div>
             <h4>Social Learning</h4>
             <p>#</p>
           </div>
@@ -94,13 +111,13 @@ const StudentDashboard = () => {
             onClick={() => navigate('/studentsDash/subjects')}
             style={{ cursor: 'pointer' }}
           >
-            <div className="card-icon">📅</div>
+            <div className="card-icon"><FaCalendarAlt /></div>
             <h4>Subject</h4>
             <p><b>1</b></p>
           </div>
 
           <div className="card blue">
-            <div className="card-icon">📋</div>
+            <div className="card-icon"><FaClipboardList /></div>
             <h4>Today</h4>
             <p>0 Events</p>
             <p>0 Class schedule</p>
@@ -109,12 +126,11 @@ const StudentDashboard = () => {
         </div>
       </div>
 
-      {/* ✅ Profile Popup */}
       {showProfilePopup && (
         <div className="popup-overlay" onClick={() => setShowProfilePopup(false)}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={() => setShowProfilePopup(false)}>❎</button>
-            <h2>👤 Student Profile</h2>
+            <button className="close-btn" onClick={() => setShowProfilePopup(false)}><FaTimes /></button>
+            <h2><FaUser /> Student Profile</h2>
             <p><strong>Name:</strong> Student Name</p>
             <p><strong>Email:</strong> student@example.com</p>
             <p><strong>Enrollment No:</strong> STU123456</p>
@@ -128,5 +144,6 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
+
 
 

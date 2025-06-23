@@ -27,7 +27,6 @@ const InstituteSetupPage = () => {
     <div className="setup-page">
       <div className="setup-left">
         <h1>Leading the Way in Education Technology</h1>
-        
       </div>
 
       <div className="setup-right">
@@ -55,7 +54,7 @@ const InstituteSetupPage = () => {
           </select>
         </div>
 
-     <div className="form-group">
+        <div className="form-group">
           <label>Student Size*</label>
           <input
             type="number"
@@ -73,20 +72,19 @@ const InstituteSetupPage = () => {
               <input
                 type="radio"
                 name="startType"
-               value=""
-                checked={formData.startType === ''}
+                value="fresh"
+                checked={formData.startType === 'fresh'}
                 onChange={handleChange}
-              /> WithFreshData
+              /> With Fresh Data
             </label>
             <label>
               <input
                 type="radio"
                 name="startType"
-                value=""
-                checked={formData.startType === ''}
+                value="demo"
+                checked={formData.startType === 'demo'}
                 onChange={handleChange}
-              />
-              WithDemoData
+              /> With Demo Data
             </label>
           </div>
         </div>
