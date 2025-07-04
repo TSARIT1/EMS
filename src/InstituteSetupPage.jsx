@@ -27,6 +27,7 @@ const InstituteSetupPage = () => {
     <div className="setup-page">
       <div className="setup-left">
         <h1>Leading the Way in Education Technology</h1>
+        
       </div>
 
       <div className="setup-right">
@@ -54,7 +55,7 @@ const InstituteSetupPage = () => {
           </select>
         </div>
 
-        <div className="form-group">
+     <div className="form-group">
           <label>Student Size*</label>
           <input
             type="number"
@@ -72,19 +73,20 @@ const InstituteSetupPage = () => {
               <input
                 type="radio"
                 name="startType"
-                value="fresh"
-                checked={formData.startType === 'fresh'}
+               value=""
+                checked={formData.startType === ''}
                 onChange={handleChange}
-              /> With Fresh Data
+              /> WithFreshData
             </label>
             <label>
               <input
                 type="radio"
                 name="startType"
-                value="demo"
-                checked={formData.startType === 'demo'}
+                value=""
+                checked={formData.startType === ''}
                 onChange={handleChange}
-              /> With Demo Data
+              />
+              WithDemoData
             </label>
           </div>
         </div>
@@ -97,4 +99,4 @@ const InstituteSetupPage = () => {
   );
 };
 
-export default InstituteSetupPage;
+export default InstituteSetupPage;  
