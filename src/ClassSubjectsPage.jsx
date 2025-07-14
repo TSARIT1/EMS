@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import axios for API calls
 import './ClassSubjectsPage.css';
+
+const API_BASE_URL = 'http://127.0.0.1:8000/api'; 
 
 const Modal = ({ isOpen, onClose, onSubmit, initialData = {}, fields, title }) => {
   const [formData, setFormData] = useState(initialData);
@@ -63,6 +66,90 @@ const ClassSubjectsPage = () => {
   const [modalData, setModalData] = useState({ type: '', open: false, index: null, data: {} });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  const formatDataForApi = (type, data) => {
+    switch (type) {
+      case 'class':
+        return {
+          class_name: data.name,
+          class_code: data.code
+        };
+      case 'section':
+        return {
+          section_name: data.name,
+          section_code: data.code
+        };
+      case 'subject':
+        return {
+          subject_name: data.name,
+          subject_code: data.code,
+          credit: data.credit,
+          subject_type: data.type
+        };
+      default:
+        return data;
+    }
+  };
+
+
+  const formatDataFromApi = (type, apiData) => {
+    return apiData.map(item => {
+      switch (type) {
+        case 'class':
+          return {
+            id: item.id,
+            name: item.class_name,
+            code: item.class_code
+          };
+        case 'section':
+          return {
+            id: item.id,
+            name: item.section_name,
+            code: item.section_code
+          };
+        case 'subject':
+          return {
+            id: item.id,
+            name: item.subject_name,
+            code: item.subject_code,
+            credit: item.subject_credit,
+            type: item.subject_type 
+          };
+        default:
+          return item;
+      }
+    });
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [classesRes, sectionsRes, subjectsRes] = await Promise.all([
+          axios.get(`${API_BASE_URL}/classes/`),
+          axios.get(`${API_BASE_URL}/sections/`),
+          axios.get(`${API_BASE_URL}/subjects/`)
+        ]);
+        
+        setClasses(classesRes.data);
+        setSections(sectionsRes.data);
+        setSubjects(subjectsRes.data);
+        console.log("dataaaaa...",subjectsRes.data);
+        
+      } catch (err) {
+        setError(err.message || 'Failed to fetch data');
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const openModal = (type, index = null, data = {}) => {
     setModalData({ type, open: true, index, data });
@@ -72,46 +159,119 @@ const ClassSubjectsPage = () => {
     setModalData({ type: '', open: false, index: null, data: {} });
   };
 
-  const handleSave = (data) => {
-    let setFn, list, index = modalData.index;
+  const handleSave = async (data) => {
+    try {
+      const formattedData = formatDataForApi(modalData.type, data);
+      let response;
+      const isEdit = modalData.index !== null;
 
-    switch (modalData.type) {
-      case 'class':
-        setFn = setClasses;
-        list = classes;
-        break;
-      case 'section':
-        setFn = setSections;
-        list = sections;
-        break;
-      case 'subject':
-        setFn = setSubjects;
-        list = subjects;
-        break;
-      default:
-        return;
-    }
+      switch (modalData.type) {
+        case 'class':
+          if (isEdit) {
+            response = await axios.put(
+              `${API_BASE_URL}/classes/${data.id}/`,
+              formattedData
+            );
+            setClasses(classes.map((cls, i) => 
+              i === modalData.index ? formatDataFromApi('class', [response.data])[0] : cls));
+          } else {
+            response = await axios.post(
+              `${API_BASE_URL}/classes/`,
+              formattedData
+            );
+            setClasses([...classes, formatDataFromApi('class', [response.data])[0]]);
+          }
+          break;
+          
+        case 'section':
+          if (isEdit) {
+            response = await axios.put(
+              `${API_BASE_URL}/sections/${data.id}/`,
+              formattedData
+            );
+            setSections(sections.map((sec, i) => 
+              i === modalData.index ? formatDataFromApi('section/', [response.data])[0] : sec
+            ));
+          } else {
+            response = await axios.post(
+              `${API_BASE_URL}/sections/`,
+              formattedData
+            );
+            setSections([...sections, formatDataFromApi('section', [response.data])[0]]);
+          }
+          break;
+          
+        case 'subject':
+          if (isEdit) {
+            response = await axios.put(
+              `${API_BASE_URL}/subjects/${data.id}/`,
+              formattedData
+            );
+            setSubjects(subjects.map((subj, i) => 
+              i === modalData.index ? formatDataFromApi('subject', [response.data])[0] : subj
+            ));
+          } else {
+            response = await axios.post(
+              `${API_BASE_URL}/subjects/`,
+              formattedData
+            );
+            setSubjects([...subjects, formatDataFromApi('subject', [response.data])[0]]);
+          }
+          break;
+          
+        default:
+          return;
+      }
 
-    const updated = [...list];
-    if (index !== null) {
-      updated[index] = data;
-    } else {
-      updated.push(data);
+      closeModal();
+    } catch (err) {
+      setError(err.message || 'Failed to save data');
+      console.error('Error saving data:', err);
     }
-    setFn(updated);
   };
 
-  const handleDelete = (type, index) => {
+ const handleDelete = async (type, index) => {
+  try {
     const listMap = {
       class: [classes, setClasses],
       section: [sections, setSections],
       subject: [subjects, setSubjects],
     };
+    
     const [list, setFn] = listMap[type];
+    const item = list[index];
+    
+    // Ensure we have the correct endpoint structure
+    let endpoint;
+    switch (type) {
+      case 'class':
+        endpoint = `${API_BASE_URL}/classes/${item.id}/`;
+        break;
+      case 'section':
+        endpoint = `${API_BASE_URL}/sections/${item.id}/`;
+        break;
+      case 'subject':
+        endpoint = `${API_BASE_URL}/subjects/${item.id}/`;
+        break;
+      default:
+        return;
+    }
+
+    // Call API to delete with proper endpoint
+    await axios.delete(endpoint);
+    
+    // Update local state
     const updated = [...list];
     updated.splice(index, 1);
     setFn(updated);
-  };
+  } catch (err) {
+    console.error('Delete error details:', {
+      error: err,
+      response: err.response,
+    });
+    setError(err.response?.data?.message || err.message || 'Failed to delete item');
+  }
+};
 
   const fieldMap = {
     class: {
@@ -140,26 +300,64 @@ const ClassSubjectsPage = () => {
   };
 
   // Handle import
-  const handleImport = () => {
-    alert("Import logic to be implemented (e.g., open file dialog)");
-    setMenuOpen(false);
+  const handleImport = async (file) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await axios.post(`${API_BASE_URL}/import`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      
+
+      setClasses(response.data.classes || []);
+      setSections(response.data.sections || []);
+      setSubjects(response.data.subjects || []);
+      
+      setMenuOpen(false);
+      alert('Data imported successfully!');
+    } catch (err) {
+      setError(err.message || 'Failed to import data');
+      console.error('Error importing data:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Handle export
-  const handleExport = () => {
-    const data = { classes, sections, subjects };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'academics_data.json';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setMenuOpen(false);
+
+  const handleExport = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/export`, {
+        responseType: 'blob'
+      });
+      
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'academics_data.json');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      setError(err.message || 'Failed to export data');
+      console.error('Error exporting data:', err);
+    } finally {
+      setMenuOpen(false);
+    }
   };
 
-  // Close dropdowns when clicking outside
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleImport(file);
+    }
+    e.target.value = null; 
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest('.dropdown-wrapper')) {
@@ -172,6 +370,7 @@ const ClassSubjectsPage = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
 
   return (
     <div className="class-subjects-page">
@@ -204,7 +403,18 @@ const ClassSubjectsPage = () => {
             <button className="menu-icon" onClick={() => setMenuOpen(prev => !prev)}>⋮</button>
             {menuOpen && (
               <div className="menu-dropdown">
-                <div onClick={handleImport}>⬆️ Import Academics Data</div>
+                <div>
+                  <label htmlFor="import-file" style={{ cursor: 'pointer' }}>
+                    ⬆️ Import Academics Data
+                  </label>
+                  <input
+                    id="import-file"
+                    type="file"
+                    accept=".json"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                </div>
                 <div onClick={handleExport}>⬇️ Export Academics Data</div>
               </div>
             )}
@@ -227,9 +437,9 @@ const ClassSubjectsPage = () => {
           </div>
           <div className="class-col-body">
             {classes.map((cls, i) => (
-              <div key={i} className="class-row">
-                <span>{cls.name}</span>
-                <span>{cls.code}</span>
+              <div key={cls.id || i} className="class-row">
+                <span>{cls.class_name}</span>
+                <span>{cls.class_code}</span>
                 <div className="row-actions">
                   <button onClick={() => openModal('class', i, cls)}>✏️</button>
                   <button onClick={() => handleDelete('class', i)}>🗑️</button>
@@ -252,9 +462,9 @@ const ClassSubjectsPage = () => {
           </div>
           <div className="section-col-body">
             {sections.map((sec, i) => (
-              <div key={i} className="section-row">
-                <span>{sec.name}</span>
-                <span>{sec.code}</span>
+              <div key={sec.id || i} className="section-row">
+                <span>{sec.section_name}</span>
+                <span>{sec.section_code}</span>
                 <div className="row-actions">
                   <button onClick={() => openModal('section', i, sec)}>✏️</button>
                   <button onClick={() => handleDelete('section', i)}>🗑️</button>
@@ -279,11 +489,11 @@ const ClassSubjectsPage = () => {
           </div>
           <div className="subject-col-body">
             {subjects.map((subj, i) => (
-              <div key={i} className="subject-row">
-                <span>{subj.name}</span>
-                <span>{subj.code}</span>
-                <span>{subj.credit}</span>
-                <span>{subj.type}</span>
+              <div key={subj.id || i} className="subject-row">
+                <span>{subj.subject_name}</span>
+                <span>{subj.subject_code}</span>
+                <span>{subj.subject_credit}</span>
+                <span>{subj.subject_type}</span>
                 <div className="row-actions">
                   <button onClick={() => openModal('subject', i, subj)}>✏️</button>
                   <button onClick={() => handleDelete('subject', i)}>🗑️</button>
@@ -297,21 +507,4 @@ const ClassSubjectsPage = () => {
   );
 };
 
-export default ClassSubjectsPage; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default ClassSubjectsPage;
