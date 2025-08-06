@@ -178,3 +178,162 @@
 }
 
 
+
+
+
+
+/* Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+/* Popup Container */
+.popup-form {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 850px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.popup-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Close Button */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ff4d4f;
+}
+
+/* Form Fields */
+.assessment-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.assessment-form label {
+  width: 100%;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* Inputs and Selects */
+.assessment-form input[type="text"],
+.assessment-form input[type="number"],
+.assessment-form select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.assessment-form input:focus,
+.assessment-form select:focus {
+  border-color: #646cff;
+  outline: none;
+}
+
+/* Radio Group */
+.radio-group {
+  flex-direction: column;
+}
+
+.radio-group label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.radio-group div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 5px;
+}
+
+.radio-group input[type="radio"],
+.radio-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* Save Button */
+.save-btn {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-btn:hover {
+  background-color: #4338ca;
+}
+
+/* Cancel/Close Button */
+.form-buttons .close-btn {
+  background-color: #e5e7eb;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-buttons .close-btn:hover {
+  background-color: #d1d5db;
+}
+

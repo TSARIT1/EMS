@@ -12,8 +12,7 @@ const SchedulesCommunicationPage = () => {
       title: 'Messaging',
       items: [
         { label: 'Emails', path: '/admin/schedules/emails' },
-        { label: 'SMS', path: '/admin/schedules/sms' },
-        { label: 'WhatsApp', path: '/admin/schedules/whatsapp' },
+       
       ],
     },
     {

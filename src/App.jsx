@@ -26,6 +26,7 @@ import StudentDashboard from './StudentDashboard';
 import RegisterPage from './RegisterPage';
 import OtpVerificationPage from './OtpVerificationPage';
 import InstituteSetupPage from './InstituteSetupPage';
+import EmailsPage from './EmailsPage';
 
 import './App.css';
 
@@ -151,6 +152,7 @@ function App() {
         {/* Student Routes */}
         <Route path="/studentsDash" element={<StudentDashboard />} />
         <Route path="/studentsDash/subjects" element={<SubjectsPage />} />
+        <Route path="/admin/schedules/emails" element={<EmailsPage />} />
 
         {/* You can add Parent Routes here */}
       </Routes>
