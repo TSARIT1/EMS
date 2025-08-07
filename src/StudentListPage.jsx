@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './StudentListPage.css';
+import axios from 'axios';
 
 const StudentListPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
-    bloodGroup: '', skills: '', facebook: '', linkedin: '',
+    first_name: '', last_name: '', admission_no: '', email: '', contact: '',
+    blood_group: '', skills: '', facebook: '', linkedin: '',
     additionalDetails: '', address: '', zipCode: '', state: '', country: '',
-    fatherName: '', motherName: '', parentContact: '', parentEmail: ''
+    father_name: '', mother_name: '', parent_contact: '', parent_email: ''
   });
 
   const handleAddStudent = () => setShowForm(true);
@@ -19,28 +20,74 @@ const StudentListPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSave = () => {
+  const handleSave =async () => {
     setStudents([...students, formData]);
     setFormData({
-      firstName: '', lastName: '', admissionNo: '', email: '', contact: '',
-      bloodGroup: '', skills: '', facebook: '', linkedin: '',
+      first_name: '', last_name: '', admission_no: '', email: '', contact: '',
+      blood_group: '', skills: '', facebook: '', linkedin: '',
       additionalDetails: '', address: '', zipCode: '', state: '', country: '',
-      fatherName: '', motherName: '', parentContact: '', parentEmail: ''
+      father_name: '', mother_name: '', parent_contact: '', parent_email: ''
     });
+    try {
+      const res = await axios.post('http://127.0.0.1:8000/api/addstudents/',formData);
+      console.log('data sent backend');
+      alert("data submitted")
+      
+    } catch (error) {
+      console.error(error)
+      alert("data not submitted")
+      
+    }
     setShowForm(false);
   };
 
-  const handleDelete = (index) => {
-    const updated = students.filter((_, i) => i !== index);
-    setStudents(updated);
+  const handleDelete = async(s) => {
+   
+    
+    try {
+      const res = await axios.delete(`http://127.0.0.1:8000/api/addstudents/${s.id}/`);
+      
+    } catch (error) {
+      console.error(error)
+      
+    }
   };
 
-  const handleEdit = (index) => {
-    const student = students[index];
-    setFormData(student);
-    handleDelete(index);
+  const handleEdit = async (s) => {
     setShowForm(true);
+    try {
+      const res = await axios.put(`http://127.0.0.1:8000/api/addstudents/${s.id}/`,formData);
+      alert('updated success')
+
+
+      
+    } catch (error) {
+      console.error(error);
+      
+      
+    }
+    
+    
+    
+    
   };
+
+
+  const fetchStudentData = async()=>{
+    try {
+      const res = await axios.get('http://127.0.0.1:8000/api/addstudents/')
+      
+      setStudents(res.data)
+      
+    } catch (error) {
+      console.error(error)
+      
+    }
+  }
+  useEffect(()=>{
+    fetchStudentData()
+    
+  },[])
 
   return (
     <div className="student-form-wrapper">
@@ -86,13 +133,13 @@ const StudentListPage = () => {
                   <tr key={index}>
                     <td><span className="index-box">{index + 1}</span></td>
                     <td>👤</td>
-                    <td>{s.firstName} {s.lastName}</td>
+                    <td>{s.first_name} {s.last_name}</td>
                     <td>Regular</td>
                     <td>{s.contact}</td>
                     <td>{s.email}</td>
                     <td>
-                      <button onClick={() => handleEdit(index)}>✏️</button>
-                      <button onClick={() => handleDelete(index)}>🗑️</button>
+                      <button onClick={() => handleEdit(s)}>✏️</button>
+                      <button onClick={() => handleDelete(s)}>🗑️</button>
                     </td>
                   </tr>
                 ))}
@@ -107,10 +154,10 @@ const StudentListPage = () => {
             <div className="form-section">
               <h4>📚 Academic Details</h4>
               <div className="row">
-                <input type="text" placeholder="First Name" name="firstName" value={formData.firstName} onChange={handleChange} />
-                <input type="text" placeholder="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} />
+                <input type="text" placeholder="First Name" name="first_name" value={formData.first_name} onChange={handleChange} />
+                <input type="text" placeholder="Last Name" name="last_name" value={formData.last_name} onChange={handleChange} />
               </div>
-              <input type="text" placeholder="Admission No" name="admissionNo" value={formData.admissionNo} onChange={handleChange} />
+              <input type="text" placeholder="Admission No" name="admission_no" value={formData.admission_no} onChange={handleChange} />
             </div>
 
             <div className="form-section">
@@ -119,7 +166,7 @@ const StudentListPage = () => {
                 <input type="email" placeholder="Email" name="email" value={formData.email} onChange={handleChange} />
                 <input type="text" placeholder="Contact" name="contact" value={formData.contact} onChange={handleChange} />
               </div>
-              <input type="text" placeholder="Blood Group" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} />
+              <input type="text" placeholder="Blood Group" name="blood_group" value={formData.blood_group} onChange={handleChange} />
             </div>
 
             <div className="form-section">
@@ -144,12 +191,12 @@ const StudentListPage = () => {
                 <input type="text" placeholder="Country" name="country" value={formData.country} onChange={handleChange} />
               </div>
               <div className="row">
-                <input type="text" placeholder="Father Name" name="fatherName" value={formData.fatherName} onChange={handleChange} />
-                <input type="text" placeholder="Mother Name" name="motherName" value={formData.motherName} onChange={handleChange} />
+                <input type="text" placeholder="Father Name" name="father_name" value={formData.father_name} onChange={handleChange} />
+                <input type="text" placeholder="Mother Name" name="mother_name" value={formData.mother_name} onChange={handleChange} />
               </div>
               <div className="row">
-                <input type="text" placeholder="Parent Contact" name="parentContact" value={formData.parentContact} onChange={handleChange} />
-                <input type="text" placeholder="Parent Email" name="parentEmail" value={formData.parentEmail} onChange={handleChange} />
+                <input type="text" placeholder="Parent Contact" name="parent_contact" value={formData.parent_contact} onChange={handleChange} />
+                <input type="text" placeholder="Parent Email" name="parent_email" value={formData.parent_email} onChange={handleChange} />
               </div>
               <textarea placeholder="Additional Info" name="additionalDetails" value={formData.additionalDetails} onChange={handleChange}></textarea>
             </div>
