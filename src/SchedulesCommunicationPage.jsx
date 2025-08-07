@@ -29,13 +29,7 @@ const SchedulesCommunicationPage = () => {
         { label: 'Manage Class Schedule', path: '/admin/schedules/class-schedule' },
       ],
     },
-    {
-      icon: '📄',
-      title: 'Notice Board',
-      items: [
-        { label: 'Notices', path: '/admin/schedules/notices' },
-      ],
-    },
+    
    
    
   ];

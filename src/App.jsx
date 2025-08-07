@@ -27,6 +27,8 @@ import RegisterPage from './RegisterPage';
 import OtpVerificationPage from './OtpVerificationPage';
 import InstituteSetupPage from './InstituteSetupPage';
 import EmailsPage from './EmailsPage';
+import EventsPage from './EventsPage';
+import ManageClassSchedule from './ManageClassSchedule';
 
 import './App.css';
 
@@ -153,6 +155,9 @@ function App() {
         <Route path="/studentsDash" element={<StudentDashboard />} />
         <Route path="/studentsDash/subjects" element={<SubjectsPage />} />
         <Route path="/admin/schedules/emails" element={<EmailsPage />} />
+        <Route path="/admin/schedules/events" element={<EventsPage />} />
+
+        <Route path="/admin/schedules/class-schedule" element={<ManageClassSchedule />} />
 
         {/* You can add Parent Routes here */}
       </Routes>
